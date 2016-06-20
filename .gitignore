@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 Skip to content
 This repository
@@ -25,6 +26,8 @@ bc_8_online_store/.gitignore
 64e2d8b 4 minutes ago
 @hanmaslah hanmaslah Initial commit
 90 lines (71 sloc) 1.02 KB
+=======
+>>>>>>> 64e2d8bde13a47f6827b3d2b0a7f178ee5f94637
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -114,8 +117,11 @@ ENV/
 
 # Rope project settings
 .ropeproject
+<<<<<<< HEAD
 
     Status API Training Shop Blog About 
 
     © 2016 GitHub, Inc. Terms Privacy Security Contact Help 
 
+=======
+>>>>>>> 64e2d8bde13a47f6827b3d2b0a7f178ee5f94637
