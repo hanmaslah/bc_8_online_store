@@ -1,8 +1,6 @@
 from flask import Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db, login_manager
-from pathlib import Path
-print('Running' if __name__ == '__main__' else 'Importing', Path(__file__).resolve())
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.sqlite3'
@@ -14,14 +12,12 @@ class Users(db.Model):
     username = db.Column(db.String(50))
     password = db.Column(db.String(20))
     phone = db.Column(db.String(10))
-    role = db.column(db.String(10))
 
-    def __init__(self, name, username, phone, password, role):
+    def __init__(self, name, username, phone, password):
         self.name = name
         self.username = username
         self.phone = phone
         self.password = password
-        self.role = role
 
     @property
     def password(self):
@@ -53,8 +49,8 @@ def load_user(user_id):
 class Products(db.Model):
     id = db.Column('product_id', db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    quantity = db.Column(db.Integer(50))
-    unit_price = db.Column(db.Integer(20))
+    quantity = db.Column(db.Integer)
+    unit_price = db.Column(db.Integer)
     category = db.Column(db.String(10))
 
     def __init__(self, name, category, unit_price, quantity):
@@ -64,4 +60,14 @@ class Products(db.Model):
         self.quantity = quantity
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.username\
+
+
+
+class Store(db.Model):
+    id = db.Column('store_id', db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+
+if __name__ == '__main__':
+    db.create_all()
+    app.run(debug=True)
