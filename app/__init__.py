@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
-from . import config
+from config import config
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -29,11 +29,5 @@ def create_app(config_name):
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
-
-    from .issue import issue as issue_blueprint
-    app.register_blueprint(issue_blueprint)
-
-    from .admin import admin as admin_blueprint
-    app.register_blueprint(admin_blueprint)
 
     return app
