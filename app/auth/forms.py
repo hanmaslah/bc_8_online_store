@@ -4,7 +4,7 @@ from wtforms import BooleanField, SubmitField, ValidationError, validators
 from ..models import Users
 
 
-class LoginForm(RegistrationForm):
+class LoginForm(Form):
     '''This class extends the registration form class
     '''
     username = StringField('Username',
@@ -16,7 +16,7 @@ class LoginForm(RegistrationForm):
     submit = SubmitField('Log In')
 
 
-class RegistrationForm(Form):
+class RegistrationForm(LoginForm):
     '''This class creates a registration form.
     '''
     first_name = StringField('First Name', [validators.Required()])
