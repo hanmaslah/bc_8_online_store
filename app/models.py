@@ -3,12 +3,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db, login_manager
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.sqlite3'
 
 
 class Users(db.Model):
     id = db.Column('user_id', db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
+    fname = db.Column(db.String(20))
+    lname = db.Column(db.String(20))
     username = db.Column(db.String(50))
     password = db.Column(db.String(20))
     phone = db.Column(db.String(10))
