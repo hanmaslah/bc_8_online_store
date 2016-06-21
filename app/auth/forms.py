@@ -4,9 +4,10 @@ from wtforms import BooleanField, SubmitField, ValidationError, validators
 from ..models import Users
 
 
-class LoginForm(RegistrationForm):
+class LoginForm(Form):
     '''This class extends the registration form class
     '''
+    # for a login, the username and password are required.
     username = StringField('Username',
                            [validators.Required(
                             message='Kindly Enter your username')]
@@ -16,24 +17,21 @@ class LoginForm(RegistrationForm):
     submit = SubmitField('Log In')
 
 
-class RegistrationForm(Form):
+class RegistrationForm(LoginForm):
     '''This class creates a registration form.
     '''
+
     first_name = StringField('First Name', [validators.Required()])
     last_name = StringField('Last Name', [validators.Required()])
-    email = StringField(
-        'Email Address',
-        [
-            validators.Required(),
-            validators.Length(
-                min=6, max=64, message='Your email is invalid')
-        ]
-    )
+    phone = StringField('Phone Number')
+    username = StringField('Username', [validators.Required()])
+
     password = PasswordField('Password', [validators.Required(),
                                           validators.EqualTo(
         'password_confirmation',
         'Passwords do not match.'
     )])
+    # check if Passwords match
     password_confirmation = PasswordField('Password Confirmation',
                                           [validators.Required()])
     submit = SubmitField('Submit')
@@ -43,5 +41,6 @@ class RegistrationForm(Form):
         '''This method checks if a username already exists in
         the database
         '''
+        # check fot the first occurrence of that username and raise an error
         if Users.query.filter_by(username=field.data).first():
             raise ValidationError('Username already exists.')

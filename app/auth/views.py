@@ -10,11 +10,19 @@ from .forms import LoginForm, RegistrationForm
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        # Login and validate the user.
+        # user should be an instance of your `Users` class
         user = Users.query.filter_by(username=form.username.data).first()
-        if user is not None and user.verify_password(form.password.data):
-            login_user(user, form.remember.data)
-            return redirect(request.args.get('next') or url_for('main.index'))
+        # if user is not None and user.verify_password(form.password.data):
+        login_user(user, form.remember.data)
+        flash('Logged in successfully.')
+        next = request.args.get('next')
+        # next_is_valid should check if the user has valid
+        # permission to access the `next` url
+        return redirect(next or url_for('index'))
+        # return redirect(request.args.get('next') or url_for('main.home'))
         flash('Invalid username or password.')
+        # if login not successful, return to login page
     return render_template('auth/login.html', form=form)
 
 
@@ -23,6 +31,7 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out.')
+    # retuns user to the index page
     return redirect(url_for('main.index'))
 
 
@@ -36,5 +45,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Welcome to Online Store! \n Please login to continue.')
+        # after first signup, you will be redirected to the login page
         return redirect(url_for('auth.login'))
+        # Render the signup.html from the templates folder
     return render_template('auth/signup.html', form=form)
