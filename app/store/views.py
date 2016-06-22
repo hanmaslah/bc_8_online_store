@@ -6,7 +6,7 @@ from ..models import Stores, Users
 from .forms import StoreForm
 
 
-@store.route('/store')
+@store.route('/home')
 @login_required
 def index():
     '''This view function displays
@@ -17,44 +17,30 @@ def index():
     # add_store = 0
 
     for i in stores_:
-        if i.already_added():
             available_stores += 1
     return render_template('store/index.html', stores_=stores_,
                            available_stores=available_stores)
 
 
-@store.route('/store/already_added', methods=['GET', 'POST'])
-@login_required
-def already_added():
-    if request.method == 'POST':
-        id_ = request.form.get('cl')
-        store = Stores.query.filter_by(id=id_).first()
-        store.already_added = True
-        db.session.add(store)
-        db.session.commit()
-        return redirect(request.args.get('next') or url_for('store.index'))
-
-
-@store.route('/store/me')
-@login_required
+@store.route('/me')
 def my_store():
     '''This view function displays
     stores records in the database
     specific to a user
     '''
-    user = Users.query.filter_by(id=current_user.id).first()
+    user = Users.query.filter_by(user_id=current_user.id).first()
     stores_ = user.stores.all()
     available_stores = 0
 
     for i in stores_:
         if i.already_added:
             available_stores += 1
-    return render_template('store/index.html',
-                           istores_=stores_,
+    return render_template('store/view_store.html',
+                           stores_=stores_,
                            available_stores=available_stores)
 
 
-@store.route('/store/new', methods=['GET', 'POST'])
+@store.route('/new', methods=['GET', 'POST'])
 @login_required
 def store():
     '''This view function creates a
@@ -78,7 +64,6 @@ def store():
     available_stores = 0
 
     for i in stores_:
-        if i.already_added:
             available_stores += 1
     return render_template('store/new_store.html',
                            form=form, istores_=stores_,
