@@ -17,22 +17,22 @@ class Users(db.Model, UserMixin):
     password = db.Column(db.String(128))
     phone = db.Column(db.String(10))
 
-    def __init__(self, fname, lname, username, phone, password):
+    def __init__(self, fname, lname, username, password, phone):
         self.fname = fname
         self.lname = lname
         self.username = username
         self.phone = phone
         self.set_password(password)
 
-    def set_password(self, password):
+    def set_password(self, password_hash):
         '''Sets password to a hashed password
         '''
-        self.password_hash = generate_password_hash(password)
+        self.password = generate_password_hash(password_hash)
 
-    def verify_password(self, password):
+    def verify_password(self, password_hash):
         '''Checks if password matches
         '''
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password, password_hash)
 
     def __repr__(self):
         return '<Users %r>' % self.username
@@ -63,8 +63,10 @@ class Products(db.Model):
 class Stores(db.Model):
     __tablename__ = 'stores'
     id = db.Column('store_id', db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     name = db.Column(db.String(100))
     description = db.Column(db.Text)
+    user = db.relationship(Users, foreign_keys=[user_id], backref='users')
 
     def __init__(self, name, description):
         self.name = name
