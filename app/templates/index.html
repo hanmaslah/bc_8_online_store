@@ -10,6 +10,7 @@
     <h2>Online Store</h2>
     <p class="lead">Manage your online store </p>
     {% if current_user.is_authenticated %}
+    Hi {{ current_user.name }}!
     <a href="{{ url_for('store.new_store') }}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> New Store</a>
     <a href="{{ url_for('store.view_store') }}" class="btn btn-success btn-lg">View Store <span class="badge">{{ Stores }}</span></a>
     {% else %}

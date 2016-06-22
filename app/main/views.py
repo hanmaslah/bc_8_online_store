@@ -9,4 +9,4 @@ def index():
 
 @main.route('/home')
 def home():
-    return render_template('index.html')
+    return render_template('store/view_store.html')

@@ -3,30 +3,30 @@
 {% block page_content %}
 <div class="col-md-8 col-md-offset-2">
   <div class="jumbotron">
-  {% if available_stores == 0 %}
+  {% if available_products == 0 %}
   <div class="text-center">
     <h1><i class=" text-success fa fa-check-circle"></i></h1>
-    <p class="lead">OOps, you don't have a store.</p>
-    <p class="lead text-success">{{ available_stores }} Stores </p>
+    <p class="lead">OOps, you don't have products in this store.</p>
+    <p class="lead text-success">{{ available_products }} Products </p>
     <a href="{{ url_for('store.store') }}" class="btn btn-success">Create a Store</a>
   </div>
   {% else %}
   <div class="panel panel-default">
     <div class="panel-heading">
-      <button class="btn btn-info">View Stores <span class="badge">{{ available_stores }}</span></button>
-      <button class="btn btn-success btn-sm">Add Store <span class="badge">{{ available_stores }}</span></button>
+      <button class="btn btn-info">View Products <span class="badge">{{ available_products }}</span></button>
     </div>
-    {% for store in stores_ %}
+    {% for product in products_ %}
     <ul class="list-group">
       <a href="#" class="list-group-item">
 
         <p class="list-group-item-text">
-        {% if store.already_added %}
+        {% if product.already_added %}
         <i class=" text-success fa fa-check-circle fa-sm"></i>
         {% else %}
         <i class=" fa fa-download"></i>
         {% endif %}
-        {{ Store.description }}
+        {{ product.description }}
+        {{product.unit_price}}
         </p>
       </a>
     </ul>

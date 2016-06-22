@@ -7,7 +7,7 @@ class StoreForm(Form):
     '''This class creates an StoreForm
     object.
     '''
-
+# a store has a name and a description
     name = StringField('Store',
                        [validators.Required(message='Kindly enter a store.'),
                         validators.Length(

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Store | New Product{% endblock %}
+
+<div class="row">
+{% block page_content %}
+  {% if available_products == 0 %}
+  <div class="col-md-6 text-center">
+    <h1><i class=" text-success fa fa-check-circle"></i></h1>
+    <p class="lead">OOoops you don't have products on this store!!.</p>
+    <p class="lead text-success">{{ available_Products }} Available Products</p>
+    <a href="{{ url_for('store.store') }}" class="btn btn-success">Add a product</a>
+  </div>
+  {% else %}
+  <div class="col-md-6">
+  <div class="page-header text-center">
+    <h1>Available Products</h1>
+  </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <button class="btn btn-info">Available Products <span class="badge">{{ available_products }}</span></button>
+      </div>
+      <ul class="list-group">
+      {% for product in products_ %}
+        <li class="list-group-item">
+          {{ product.name }}
+          {{product.unit_price}}
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+  <div class="col-md-6">
+    <div class="page-header text-center">
+        <h1>Add Product</h1>
+    </div>
+    {{ wtf.quick_form(form) }}
+  </div>
+{% endblock %}
+</div>
