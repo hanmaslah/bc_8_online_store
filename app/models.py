@@ -1,8 +1,10 @@
+# import os
 from flask import Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db, login_manager
 
 app = Flask(__name__)
+# os.chdir('/users/maslah/documents/Python/bc-8-online-store')
 
 
 class Users(db.Model):
@@ -51,7 +53,6 @@ class Products(db.Model):
     name = db.Column(db.String(100))
     quantity = db.Column(db.Integer)
     unit_price = db.Column(db.Integer)
-    category = db.Column(db.String(10))
 
     def __init__(self, name, category, unit_price, quantity):
         self.name = name
@@ -64,9 +65,11 @@ class Products(db.Model):
 
 
 
-class Store(db.Model):
+class Stores(db.Model):
     id = db.Column('store_id', db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    description = db.Column(db.Text)
+
 
 if __name__ == '__main__':
     db.create_all()
