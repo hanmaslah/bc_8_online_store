@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<div class="col-md-8 col-md-offset-2">
+  <div class="jumbotron">
+  {% if available_stores == 0 %}
+  <div class="text-center">
+    <h1><i class=" text-success fa fa-check-circle"></i></h1>
+    <p class="lead">OOps, you don't have a store.</p>
+    <p class="lead text-success">{{ available_stores }} Stores </p>
+    <a href="{{ url_for('store.store') }}" class="btn btn-success">Create a Store</a>
+  </div>
+  {% else %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <button class="btn btn-info">View Stores <span class="badge">{{ available_stores }}</span></button>
+    </div>
+    {% for store in stores_ %}
+    <ul class="list-group">
+      <a href="#" class="list-group-item">
+
+        <p class="list-group-item-text">
+        {% if store.already_added %}
+        <i class=" text-success fa fa-check-circle fa-sm"></i>
+        {% else %}
+        <i class=" fa fa-download"></i>
+        {% endif %}
+        {{ Store.description }}
+        </p>
+      </a>
+    </ul>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+</div>
+{% endblock %}
