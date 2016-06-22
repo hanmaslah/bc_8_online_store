@@ -35,8 +35,8 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-@auth.route('/register', methods=['GET', 'POST'])
-def register():
+@auth.route('/signup', methods=['GET', 'POST'])
+def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         # get the user role default
