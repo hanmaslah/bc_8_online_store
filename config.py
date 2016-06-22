@@ -20,7 +20,7 @@ class DevelopementConfig(Config):
     DEBUG = True
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
-        os.path.join(basedir, 'online_store.sqlite')
+        os.path.join(basedir, 'online_store.db')
 
 
 class ProductionConfig(Config):
@@ -30,7 +30,7 @@ class ProductionConfig(Config):
     PORT = int(os.environ.get("PORT", 5000))
     HOST = '0.0.0.0'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
-        os.path.join(basedir, 'online_store.sqlite')
+        os.path.join(basedir, 'online_store.db')
 
 
 config = {
