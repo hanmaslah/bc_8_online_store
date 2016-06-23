@@ -18,6 +18,7 @@ class Users(db.Model, UserMixin):
     username = db.Column(db.String(50), unique=True, index=True)
     password = db.Column(db.String(128))
     phone = db.Column(db.String(10))
+    # stores = db.relationship('Stores', backref='users')
 
     '''
     Defines the constructor for the users class
@@ -52,6 +53,30 @@ def load_user(user_id):
     return Users.query.get(int(user_id))
 
 
+class Stores(db.Model):
+    '''
+    Defines the store model which will be mapped
+    to the store table in the db
+    '''
+    __tablename__ = 'stores'
+    id = db.Column('store_id', db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    name = db.Column(db.String(100))
+    description = db.Column(db.Text)
+    users = db.relationship(
+                            Users,
+                            backref=db.backref('stores', lazy='dynamic'))
+    '''
+    Defines the constructor for the stores class
+    '''
+    def __init__(self, name, description, user_id):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        return '<Store %r>' % self.name
+
+
 class Products(db.Model):
     '''
     Defines the product model which will be mapped
@@ -62,6 +87,9 @@ class Products(db.Model):
     name = db.Column(db.String(100))
     description = db.Column(db.Text)
     store_id = db.Column(db.Integer, db.ForeignKey('stores.store_id'))
+    stores = db.relationship(
+                            Stores,
+                            backref=db.backref('products', lazy='dynamic'))
 
     '''
     Defines the constructor for the products class
@@ -73,26 +101,3 @@ class Products(db.Model):
 
     def __repr__(self):
         return '<Product %r>' % self.name
-
-
-class Stores(db.Model):
-    '''
-    Defines the store model which will be mapped
-    to the store table in the db
-    '''
-    __tablename__ = 'stores'
-    id = db.Column('store_id', db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    name = db.Column(db.String(100))
-    description = db.Column(db.Text)
-    users = db.relationship(Users, foreign_keys=user_id, backref='users')
-
-    '''
-    Defines the constructor for the stores class
-    '''
-    def __init__(self, name, description, user_id):
-        self.name = name
-        self.description = description
-
-    def __repr__(self):
-        return '<Store %r>' % self.name
