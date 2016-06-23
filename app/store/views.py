@@ -2,7 +2,7 @@ from flask import render_template, redirect, request, url_for, flash
 from flask_login import login_required, current_user
 from . import store
 from .. import db
-from ..models import Stores
+from ..models import Stores, Users
 from .forms import StoreForm
 
 
@@ -13,17 +13,18 @@ def index():
     stores records in the database
     specific to a user
     '''
-    stores_ = Stores.query.filter_by(user_id=current_user.id)
+    user = Users.query.filter_by(id=current_user.id).first()
+    stores_instance = user.stores.all()
     available_stores = 0
-    # set the available_stores to zero
+    for i in stores_instance:
+        available_stores += 1
+    # set the available_stores to length of the stores_instance
 
 # loop through all stores and increment the number of available stores
-    for i in stores_:
-            available_stores += 1
-            # renders the index template in the store folder
-            # passes stores_ as the queried stores
-            # and available_stores as number of stores
-    return render_template('store/index.html', stores_=stores_,
+# renders the index template in the store folder
+# passes stores_ as the queried stores
+# and available_stores as number of stores
+    return render_template('store/index.html', stores_=stores_instance,
                            available_stores=available_stores)
 
 
@@ -35,22 +36,25 @@ def store():
     current user stores.
     '''
     form = StoreForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        store_ = Stores(name=form.name.data,
-                        description=form.description.data,
-                        user_id=current_user.id)
+    if form.validate_on_submit():
+        user = Users.query.filter_by(id=current_user.id).first()
+        stores_instance = Stores(name=form.name.data,
+                                 description=form.description.data,
+                                 user_id=current_user.id)
+
         # import ipdb; ipdb.set_trace()
-        db.session.add(store_)
+        user.stores.append(stores_instance)
+        db.session.add(stores_instance)
         db.session.commit()
         flash('Store added successfully.')
         return redirect(request.args.get('next') or url_for('store.index'))
 
-    
-    stores_ = Stores.query.filter_by(user_id=current_user.id)
+    user = Users.query.filter_by(id=current_user.id).first()
+    user_stores = user.stores.all()
     available_stores = 0
+    for i in user_stores:
+        available_stores += 1
 
-    for i in stores_:
-            available_stores += 1
     return render_template('store/new_store.html',
-                           form=form, istores_=stores_,
+                           form=form, stores_=user_stores,
                            available_stores=available_stores)
