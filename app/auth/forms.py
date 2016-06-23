@@ -5,9 +5,11 @@ from ..models import Users
 
 
 class LoginForm(Form):
-    '''This class extends the registration form class
+    '''This class creates a login form
     '''
     # for a login, the username and password are required.
+    # remember is the result of the checkbox written
+    # 'keep me logged in'
     username = StringField('Username',
                            [validators.Required(
                             message='Kindly Enter your username')]
