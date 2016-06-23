@@ -7,6 +7,7 @@ from flask_migrate import Migrate, MigrateCommand
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
+# Migrate are the application instance and the Flask-SQLAlchemy db instance.
 migrate = Migrate(app, db)
 
 
@@ -16,13 +17,13 @@ def make_shell_context():
     on `python manager.py shell`.
     '''
     # db is database
-    # Users is instance of the users table
-    # Products is instance of products table
-    # Stores is instance of stores table
+    # Users is  users model
+    # Products is  products model
+    # Stores is  stores model
     return dict(app=app, db=db, Users=Users, Products=Products,
                 Stores=Stores)
 
-
+#  auto importing python classes in flask shell
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
