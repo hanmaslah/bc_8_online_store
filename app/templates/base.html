@@ -26,7 +26,7 @@
 <span class="fa fa-shopping-cart" aria-hidden="true" style="margin-right:20px; color:#07BCD3"></span>Online Store</a>
               {% else %}
                 <a class="navbar-brand" href="{{ url_for('main.index') }}">
-              <span class="fa fa-shopping-cart" aria-hidden="true" style="margin-right:20px; "></span>Online Store</a>
+              <span class="fa fa-shopping-cart" aria-hidden="true" style="margin-right:20px; color:#07BCD3 "></span>Online Store</a>
                 {% endif %}
         </div>
         <div class="navbar-collapse collapse">
@@ -52,7 +52,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+
     {% for message in get_flashed_messages() %}
     <div class="col-md-4 col-md-offset-4">
         <div class="alert alert-warning text-center">
@@ -61,7 +61,7 @@
         </div>
     </div>
     {% endfor %}
-
+<div class="container-fluid">
     {% block page_content %}
     {% endblock %}
 

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-
+{% block title %}View Stores | Store{% endblock %}
 {%  block page_content %}
 <div class="col-md-8 col-md-offset-2">
-  <div class="jumbotron text-center" style = "background-color:#e3f2fd">
+  <div class="jumbotron " style = "background-color:#e3f2fd">
   {% if available_stores == 0 %}
   <div class="text-center">
     <h1><i class=" fa fa-info-circle fa-5 fa-3dicon" style = "color:#B13138"></i></h1>
@@ -12,20 +12,27 @@
 {% else %}
   <div class="panel-heading">
     <p class="lead text-success">You have {{ available_stores }} Stores </p>
+
   </div>
   {% endif %}
 {% for store in stores_ %}
 <ul class="list-group">
-<p>  <a href="{{ url_for('product.index')}}" class="list-group-item-text">
+<p><td> <a href="{{ url_for('product.index')}}" class="list-group-item-text">
 {{store.name}}
-</a></p>
-    <p >
-    {{ store.description }}
-    </p>
+</a></td>
+</p>
+
+{{ store.description }}
+<br>
+
+
+
 
 </ul>
-</div>
-</div>
+
 
 {% endfor %}
+
+</div>
+</div>
 {% endblock %}

@@ -9,11 +9,11 @@
     <div class="page-header text-center">
       <h1>Join Online Store</h1>
     </div>
-    <div class="jumbotron">
+    <div class="jumbotron" style = "background-color:#e3f2fd">
     {{ wtf.quick_form(form) }}
         </div>
         <div>
-          <p>Already have an account? <a href="{{ url_for('auth.login') }}">Log In</a></p>
+          <p>Already have an account? <a href="{{ url_for('auth.login',username) }}">Log In</a></p>
         </div>
   </div>
 
