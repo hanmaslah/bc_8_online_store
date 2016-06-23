@@ -8,6 +8,7 @@ class StoreForm(Form):
     object.
     '''
 # a store has a name and a description
+# a store belongs to a user
     name = StringField('Store',
                        [validators.Required(message='Kindly enter a store.'),
                         validators.Length(
@@ -18,7 +19,7 @@ class StoreForm(Form):
                        )
     description = TextAreaField('Store Description',
                                 [validators.required(
-                                    message='Please describe your store.')])
+                                      message='Please describe your store.')])
     submit = SubmitField('Create Store')
 
     def __init__(self, *args, **kwargs):
