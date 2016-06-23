@@ -1,14 +1,16 @@
-# import os
-from flask import Flask
 from flask_login import UserMixin
 from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 
-app = Flask(__name__)
+
 # os.chdir('/users/maslah/documents/Python/bc-8-online-store')
 
 
 class Users(db.Model, UserMixin):
+    '''
+    Defines the user model which will be mapped
+    to the user table in the db
+    '''
     __tablename__ = 'users'
     id = db.Column('user_id', db.Integer, primary_key=True)
     fname = db.Column(db.String(20))
@@ -17,6 +19,9 @@ class Users(db.Model, UserMixin):
     password = db.Column(db.String(128))
     phone = db.Column(db.String(10))
 
+    '''
+    Defines the constructor for the users class
+    '''
     def __init__(self, fname, lname, username, password, phone):
         self.fname = fname
         self.lname = lname
@@ -34,8 +39,12 @@ class Users(db.Model, UserMixin):
         '''
         return check_password_hash(self.password, password_hash)
 
+        '''
+        The __repr__() method is made automatically when the class is made,
+        it decides how the class is represented when it is printed
+        '''
     def __repr__(self):
-        return '<Users %r>' % self.username
+        return '<Users %r>' % self.id
 
 
 @login_manager.user_loader
@@ -44,15 +53,21 @@ def load_user(user_id):
 
 
 class Products(db.Model):
+    '''
+    Defines the product model which will be mapped
+    to the product table in the db
+    '''
+
     id = db.Column('product_id', db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    unit_price = db.Column(db.Integer)
     description = db.Column(db.Text)
     store_id = db.Column(db.Integer, db.ForeignKey('stores.store_id'))
 
-    def __init__(self, name, unit_price, store_id, description):
+    '''
+    Defines the constructor for the products class
+    '''
+    def __init__(self, name, store_id, description):
         self.name = name
-        self.unit_price = unit_price
         self.store_id = store_id
         self.description = description
 
@@ -61,14 +76,21 @@ class Products(db.Model):
 
 
 class Stores(db.Model):
+    '''
+    Defines the store model which will be mapped
+    to the store table in the db
+    '''
     __tablename__ = 'stores'
     id = db.Column('store_id', db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     name = db.Column(db.String(100))
     description = db.Column(db.Text)
-    user = db.relationship(Users, foreign_keys=[user_id], backref='users')
+    users = db.relationship(Users, foreign_keys=user_id, backref='users')
 
-    def __init__(self, name, description):
+    '''
+    Defines the constructor for the stores class
+    '''
+    def __init__(self, name, description, user_id):
         self.name = name
         self.description = description
 
