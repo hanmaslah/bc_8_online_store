@@ -1,38 +1,31 @@
 {% extends 'base.html' %}
 
-{% block page_content %}
+{%  block page_content %}
 <div class="col-md-8 col-md-offset-2">
-  <div class="jumbotron">
+  <div class="jumbotron text-center" style = "background-color:#e3f2fd">
   {% if available_products == 0 %}
   <div class="text-center">
-    <h1><i class=" text-success fa fa-check-circle"></i></h1>
-    <p class="lead">OOps, you don't have products in this store.</p>
-    <p class="lead text-success">{{ available_products }} Products </p>
-    <a href="{{ url_for('store.store') }}" class="btn btn-success">Create a Store</a>
+    <h1><i class=" fa fa-info-circle fa-5 fa-3dicon" style = "color:#B13138"></i></h1>
+    <p class="lead text-success">OOps, you don't have products in this store.</p>
+    <a href="{{ url_for('store.store') }}" class="btn btn-success">Add a product</a>
   </div>
-  {% else %}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <button class="btn btn-info">View Products <span class="badge">{{ available_products }}</span></button>
-    </div>
-    {% for product in products_ %}
-    <ul class="list-group">
-      <a href="#" class="list-group-item">
-
-        <p class="list-group-item-text">
-        {% if product.already_added %}
-        <i class=" text-success fa fa-check-circle fa-sm"></i>
-        {% else %}
-        <i class=" fa fa-download"></i>
-        {% endif %}
-        {{ product.description }}
-        {{product.unit_price}}
-        </p>
-      </a>
-    </ul>
-    {% endfor %}
+{% else %}
+  <div class="panel-heading">
+    <p class="lead text-success">You have {{ available_products }} Products </p>
   </div>
   {% endif %}
-</div>
-</div>
+{% for product in products_ %}
+<ul class="list-group">
+  <a href="#" class="list-group-item">
+
+    <p class="list-group-item-text">
+    {{product.name}}
+    <i class=" text-success fa fa-check-circle fa-sm"></i>
+
+    {{ product.description }}
+    {{product.unit_price}}
+    </p>
+  </a>
+</ul>
+{% endfor %}
 {% endblock %}

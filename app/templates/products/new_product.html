@@ -9,7 +9,6 @@
   <div class="col-md-6 text-center">
     <h1><i class=" text-success fa fa-check-circle"></i></h1>
     <p class="lead">OOoops you don't have products on this store!!.</p>
-    <p class="lead text-success">{{ available_Products }} Available Products</p>
     <a href="{{ url_for('store.store') }}" class="btn btn-success">Add a product</a>
   </div>
   {% else %}
@@ -25,7 +24,7 @@
       {% for product in products_ %}
         <li class="list-group-item">
           {{ product.name }}
-          {{product.unit_price}}
+          
         </li>
       {% endfor %}
       </ul>

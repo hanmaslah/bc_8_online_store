@@ -3,39 +3,17 @@
 
 {% block title %}New Store | Store{% endblock %}
 
-<div class="row">
+
+
 {% block page_content %}
-  {% if total_stores == 0 %}
-  <div class="col-md-6 text-center">
-    <h1><i class=" text-success fa fa-check-circle"></i></h1>
-    <p class="lead">OOoops you don't have a store!!.</p>
-    <p class="lead text-success">{{ available_stores }} Available Stores</p>
-    <a href="{{ url_for('store.store') }}" class="btn btn-success">Create a Store</a>
-  </div>
-  {% else %}
-  <div class="col-md-6">
+</div = "">
+<div class="col-lg-4 col-md-offset-4">
   <div class="page-header text-center">
-    <h1>Available Stores</h1>
-  </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <button class="btn btn-info">Available Stores <span class="badge">{{ available_stores }}</span></button>
-      </div>
-      <ul class="list-group">
-      {% for store in stores_ %}
-        <li class="list-group-item">
-          {{ store.name }}
-        </li>
-      {% endfor %}
-      </ul>
-    </div>
-  </div>
-  {% endif %}
-  <div class="col-md-6">
-    <div class="page-header text-center">
         <h1>Add Store</h1>
-    </div>
+</div>
+<div class ="" >
     {{ wtf.quick_form(form) }}
   </div>
-{% endblock %}
+  </div>
 </div>
+{% endblock %}
