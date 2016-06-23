@@ -1,6 +1,11 @@
 from flask import render_template, flash
 from . import main
 
+'''
+This files contains error messages for the different
+HTTP errors that can be raised
+'''
+
 
 @main.app_errorhandler(404)
 def page_not_found(e):
