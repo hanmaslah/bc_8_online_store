@@ -16,9 +16,6 @@ class ProductForm(Form):
                        )
                        ]
                        )
-    unit_price = StringField('Unit Price',
-                             [validators.required(
-                                    message='Please enter the unit price.')])
     description = TextAreaField('Product Description',
                                 [validators.required(
                                     message='Please describe your product.')])
