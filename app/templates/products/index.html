@@ -13,6 +13,7 @@
   <div class="panel-heading">
     
     <p class="lead text-success">You have {{ available_products }} Products </p>
+    <a href="{{ url_for('product.product') }}" class="btn btn-success">Add a product</a>
   </div>
   {% endif %}
 {% for product in products_ %}
@@ -27,7 +28,7 @@
 </ul>
 
 {% endfor %}
-<a href="{{ url_for('product.product') }}" class="btn btn-success">Add a product</a>
+
 </div>
 </div>
 
