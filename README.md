@@ -10,3 +10,5 @@ The Online Store application The online store application is a warehouse where a
 
 To view the development link got to
 https://trello.com/invite/b/tODcZQ6e/dc06e8d8acc2630c5919287ac450990c/andela-online-store-application
+
+The app is hosted here https://andela-online-store.herokuapp.com/
